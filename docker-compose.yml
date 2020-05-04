@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  test_1:
+    build:
+      context: .
+      target: station
+    ports:
+      - "4444:4444"
+  dash:
+    build:
+      context: .
+      target: dashboard
+    ports:
+      - "12000:12000"
