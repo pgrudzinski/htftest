@@ -1,14 +1,23 @@
 version: '3.4'
+
+volumes:
+  test_data:
+
 services:
-  test_1:
+  station:
     build:
       context: .
       target: station
     ports:
       - "4444:4444"
-  dash:
-    build:
-      context: .
-      target: dashboard
+
+  db:
+    image: couchdb:3.1
+    volumes:
+      - test_data:/opt/couchdb/data
+    environment:
+      - COUCHDB_USER=testmaster
+      - COUCHDB_PASSWORD=testmastertest
     ports:
-      - "12000:12000"
+      - "5984:5984"
+
