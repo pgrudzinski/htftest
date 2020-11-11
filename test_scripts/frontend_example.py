@@ -51,10 +51,14 @@ def lots_of_measurements(test):
   for measurement in ('third', 'fourth'):
     test.measurements[measurement] = measurement + ' is the best!'
 
+def get_test():
+    return htf.Test(hello_world,inline_phase,lots_of_measurements)
+
+
 if __name__ == '__main__':
   conf.load(station_server_port='4444')
   with station_server.StationServer() as server:
     for i in range(5):
-      test = htf.Test(hello_world,inline_phase,lots_of_measurements)
+      test = get_test()
       test.add_output_callbacks(server.publish_final_state)
       test.execute(test_start=user_input.prompt_for_test_start())

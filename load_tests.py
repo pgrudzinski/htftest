@@ -13,7 +13,7 @@ from openhtf.util import conf
 @htf.plug(prompt=user_input.UserInput)
 @htf.measures(htf.Measurement('next_test'))
 def next_test(test,prompt):
-    test.measurements.next_test = prompt.prompt('Select next test')
+    test.measurements.next_test = prompt.prompt('Select next test',text_input=True)
 
 def gather_tests():
     test_scripts = import_module('test_scripts')
@@ -37,10 +37,15 @@ class GetMeasurement:
 
     def __call__(self, record):
         for phase in record.phases:
-            if measurement_name in measurments.keys():
+            if measurement_name in phase.measurments.keys():
                 self.measurement = phase.measurements[measurement_name].measured_value.stored_value
                 break
 
+
+def public_record(rec):
+    logging.log('publishing record')
+    global record
+    record=rec
 
 def get_next_test():
     test = htf.Test(next_test,
@@ -59,7 +64,7 @@ def main():
         while True:
             tests = gather_tests()
             next_test = get_next_test()
-            test = tests[next_test]
+            test = tests[next_test]()
             #test.add_output_callbacks(publish_to_db)
             test.add_output_callbacks(server.publish_final_state)
             test.execute(test_start=user_input.prompt_for_test_start())
