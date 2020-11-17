@@ -1,0 +1,7 @@
+[testhost]
+raspberrypi.local
+
+[testhost:vars]
+host_key_checking=False
+ansible_password=raspberry
+ansible_user=pi

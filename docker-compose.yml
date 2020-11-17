@@ -14,7 +14,12 @@ services:
   db:
     image: couchdb:3.1
     volumes:
-      - test_data:/opt/couchdb/data
+      - type: volume
+        source: test_data
+        target: /opt/couchdb/data
+      - type: bind
+        source: ./couchdb
+        target: /opt/couchdb/etc/local.d
     environment:
       - COUCHDB_USER=testmaster
       - COUCHDB_PASSWORD=testmastertest
