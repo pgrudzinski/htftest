@@ -10,5 +10,5 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 COPY . .
 EXPOSE 4444 10000/udp
-CMD ["python","frontend_example.py"]
+CMD ["python","load_tests.py"]
 

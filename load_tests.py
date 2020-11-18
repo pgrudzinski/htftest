@@ -13,7 +13,7 @@ from openhtf.util import conf
 @htf.plug(prompt=user_input.UserInput)
 @htf.measures(htf.Measurement('next_test'))
 def next_test(test,prompt):
-    test.measurements.next_test = prompt.prompt('Select next test')
+    test.measurements.next_test = prompt.prompt('Select next test',text_input=True)
 
 def gather_tests():
     test_scripts = import_module('test_scripts')

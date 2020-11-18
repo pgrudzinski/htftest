@@ -63,13 +63,15 @@ def hello_world(test):
   # enforced in the future, for now it's best-practice).
   test.measurements.hello_world_measurement = 'Hello Again!'
 
+def get_test():
+    return htf.Test(hello_world)
 
 if __name__ == '__main__':
   # We instantiate our OpenHTF test with the phases we want to run as args.
   # Multiple phases would be passed as additional args, and additional
   # keyword arguments may be passed as well.  See other examples for more
   # complex uses.
-  test = htf.Test(hello_world)
+  test = get_test()
 
   # In order to view the result of the test, we have to output it somewhere,
   # and a local JSON file is a convenient way to do this.  Custom output
